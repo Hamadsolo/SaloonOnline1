@@ -1,0 +1,157 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@namespace SaloonOnline1.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="SaloonOnline1.styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/SaloonOnline/toplogo.png"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+            integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+            crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/javascript.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <script src="/js/swiper-init.js"></script>
+    <title>Saloon.Online</title>
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script>
+        const counters = document.querySelectorAll(".counter");
+
+        counters.forEach((counter) => {
+            counter.innerText = "0";
+            const updateCounter = () => {
+                const target = +counter.getAttribute("data-target");
+                const count = +counter.innerText;
+                const increment = target / 200;
+                if (count < target) {
+                    counter.innerText = `${Math.ceil(count + increment)}`;
+                    setTimeout(updateCounter, 1);
+                } else counter.innerText = target;
+            };
+            updateCounter();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const displayedImage = document.getElementById('displayed-image');
+
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', () => {
+                    displayedImage.src = thumbnail.src;
+                });
+            });
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const icons = document.querySelectorAll(".icon");
+            const displayedImage = document.getElementById("displayed-image");
+
+            icons.forEach(icon => {
+                icon.addEventListener("click", function () {
+                    // Remove active class from all icons
+                    icons.forEach(icon => icon.classList.remove("active"));
+
+                    // Add active class to the clicked icon
+                    this.classList.add("active");
+
+                    // Get the image source from the data attribute
+                    const imageSrc = this.getAttribute("data-image");
+
+                    // Check if imageSrc is correctly retrieved
+                    if (imageSrc) {
+                        // Start the fade-out transition
+                        displayedImage.classList.remove("fade-in");
+                        setTimeout(() => {
+                            // Change the image source
+                            displayedImage.setAttribute("src", imageSrc);
+                            // Start the fade-in transition
+                            displayedImage.classList.add("fade-in");
+                        }, 500); // Match the duration of the fade-out transition
+                    } else {
+                        console.error("Image source not found!");
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1, // Display one slide at a time
+            spaceBetween: 20, // Set the space between items
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                // When window width is >= 768px
+                768: {
+                    slidesPerView: 6, // Display three slides at a time
+                },
+                // When window width is >= 992px
+                992: {
+                    slidesPerView: 4,
+                },
+            },
+            effect: 'coverflow',
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: false,
+            }
+        });
+    </script>
+
+
+    <script>
+        AOS.init({
+            duration: 1200, // Animation duration in milliseconds
+
+        });
+    </script>
+     
+
+</body>
+</html>
