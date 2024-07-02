@@ -151,7 +151,24 @@
 
         });
     </script>
-     
+
+
+
+
+    <script>
+        function toggle(selection) {
+            var monthlySection = document.getElementById('monthly-section');
+            var yearlySection = document.getElementById('yearly-section');
+
+            if (selection === 'monthly') {
+                monthlySection.style.display = 'block';
+                yearlySection.style.display = 'none';
+            } else {
+                yearlySection.style.display = 'block';
+                monthlySection.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
